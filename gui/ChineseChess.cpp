@@ -1,4 +1,4 @@
-#include "ChineseChess.h"
+﻿#include "ChineseChess.h"
 #include <QPainter>
 #include <QPixmap>
 

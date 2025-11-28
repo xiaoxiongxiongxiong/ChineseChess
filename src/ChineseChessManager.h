@@ -1,23 +1,23 @@
-#pragma once
+ï»¿#pragma once
 
 class ChinessChessUnit;
 
 class ChineseChessManager
 {
 public:
-	// É¾³ı¿½±´
+	// åˆ é™¤æ‹·è´
 	ChineseChessManager(const ChineseChessManager & other) = delete;
-	// É¾³ı¸³Öµ
+	// åˆ é™¤èµ‹å€¼
 	ChineseChessManager & operator=(const ChineseChessManager &) = delete;
-	// É¾³ıÒÆ¶¯
+	// åˆ é™¤ç§»åŠ¨
 	ChineseChessManager(ChineseChessManager && other) noexcept = delete;
-	// É¾³ıÒÆ¶¯¸³Öµ
+	// åˆ é™¤ç§»åŠ¨èµ‹å€¼
 	ChineseChessManager & operator=(ChineseChessManager &&) noexcept = delete;
 
-	// È«¾ÖÎ¨Ò»·ÃÎÊµã
+	// å…¨å±€å”¯ä¸€è®¿é—®ç‚¹
     static ChineseChessManager & getInstance()
 	{
-        static ChineseChessManager instance;  // C++11 Æğ£ºÏß³Ì°²È«£¡
+        static ChineseChessManager instance;  // C++11 èµ·ï¼šçº¿ç¨‹å®‰å…¨ï¼
         return instance;
     }
 

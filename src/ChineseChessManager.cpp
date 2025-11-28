@@ -1,2 +1,2 @@
-#include "ChineseChessManager.h"
+﻿#include "ChineseChessManager.h"
 #include "ChineseChessUnit.h"

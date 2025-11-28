@@ -1,4 +1,4 @@
-#include "ChineseChessUnit.h"
+Ôªø#include "ChineseChessUnit.h"
 
 ChinessChessUnit::ChinessChessUnit(CHESS_COLOR_TYPE color, CHESS_ROLE_TYPE role) :
     _color(color),
@@ -41,7 +41,7 @@ QPixmap ChinessChessUnit::getPixmap()
     return _img;
 }
 
-// ªÒ»°Œª÷√
+// Ëé∑Âèñ‰ΩçÁΩÆ
 QRect ChinessChessUnit::rect() const
 {
     return QRect(_x, _y, _width, _height);
