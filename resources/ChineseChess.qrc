@@ -1,0 +1,20 @@
+<RCC>
+    <qresource prefix="/ChineseChess">
+        <file>res/ChessBoard.png</file>
+        <file>res/logo.ico</file>
+        <file>res/BlackAdvisor.ico</file>
+        <file>res/BlackCannon.ico</file>
+        <file>res/BlackChariot.ico</file>
+        <file>res/BlackElephant.ico</file>
+        <file>res/BlackGeneral.ico</file>
+        <file>res/BlackHorse.ico</file>
+        <file>res/BlackSoldier.ico</file>
+        <file>res/RedAdvisor.ico</file>
+        <file>res/RedCannon.ico</file>
+        <file>res/RedChariot.ico</file>
+        <file>res/RedElephant.ico</file>
+        <file>res/RedGeneral.ico</file>
+        <file>res/RedHorse.ico</file>
+        <file>res/RedSoldier.ico</file>
+    </qresource>
+</RCC>

@@ -1,0 +1,545 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ChineseChessClass</class>
+ <widget class="QMainWindow" name="ChineseChessClass">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>720</width>
+    <height>720</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>中国象棋</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="../resources/ChineseChess.qrc">
+    <normaloff>:/ChineseChess/res/logo.ico</normaloff>:/ChineseChess/res/logo.ico</iconset>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">image: url(:/ChineseChess/res/ChessBoard.png);</string>
+  </property>
+  <property name="iconSize">
+   <size>
+    <width>36</width>
+    <height>36</height>
+   </size>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <widget class="QPushButton" name="m_btnStart">
+    <property name="geometry">
+     <rect>
+      <x>650</x>
+      <y>530</y>
+      <width>60</width>
+      <height>42</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>开始</string>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>36</width>
+      <height>36</height>
+     </size>
+    </property>
+   </widget>
+   <widget class="QLabel" name="m_labBlackGeneral">
+    <property name="geometry">
+     <rect>
+      <x>334</x>
+      <y>86</y>
+      <width>48</width>
+      <height>48</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background: transparent;
+image: url(:/ChineseChess/res/BlackGeneral.ico);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="m_labBlackAdvisorLeft">
+    <property name="geometry">
+     <rect>
+      <x>275</x>
+      <y>86</y>
+      <width>48</width>
+      <height>48</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background: transparent;
+image: url(:/ChineseChess/res/BlackAdvisor.ico);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="m_labBlackAdvisorRight">
+    <property name="geometry">
+     <rect>
+      <x>393</x>
+      <y>86</y>
+      <width>48</width>
+      <height>48</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background: transparent;
+image: url(:/ChineseChess/res/BlackAdvisor.ico);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="m_labBlackElephantLeft">
+    <property name="geometry">
+     <rect>
+      <x>216</x>
+      <y>86</y>
+      <width>48</width>
+      <height>48</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background: transparent;
+image: url(:/ChineseChess/res/BlackElephant.ico);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="m_labBlackElephantRight">
+    <property name="geometry">
+     <rect>
+      <x>452</x>
+      <y>86</y>
+      <width>48</width>
+      <height>48</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background: transparent;
+image: url(:/ChineseChess/res/BlackElephant.ico);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="m_labBlackHorseLeft">
+    <property name="geometry">
+     <rect>
+      <x>157</x>
+      <y>86</y>
+      <width>48</width>
+      <height>48</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background: transparent;
+image: url(:/ChineseChess/res/BlackHorse.ico);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="m_labBlackHorseRight">
+    <property name="geometry">
+     <rect>
+      <x>511</x>
+      <y>86</y>
+      <width>48</width>
+      <height>48</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background: transparent;
+image: url(:/ChineseChess/res/BlackHorse.ico);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="m_labBlackChariotLeft">
+    <property name="geometry">
+     <rect>
+      <x>98</x>
+      <y>86</y>
+      <width>48</width>
+      <height>48</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background: transparent;
+image: url(:/ChineseChess/res/BlackChariot.ico);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="m_labBlackChariotRight">
+    <property name="geometry">
+     <rect>
+      <x>570</x>
+      <y>86</y>
+      <width>48</width>
+      <height>48</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background: transparent;
+image: url(:/ChineseChess/res/BlackChariot.ico);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="m_labBlackCannonLeft">
+    <property name="geometry">
+     <rect>
+      <x>157</x>
+      <y>202</y>
+      <width>48</width>
+      <height>48</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background: transparent;
+image: url(:/ChineseChess/res/BlackCannon.ico);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="m_labBlackCannonRight">
+    <property name="geometry">
+     <rect>
+      <x>511</x>
+      <y>202</y>
+      <width>48</width>
+      <height>48</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background: transparent;
+image: url(:/ChineseChess/res/BlackCannon.ico);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="m_labBlackSolderLeftOne">
+    <property name="geometry">
+     <rect>
+      <x>98</x>
+      <y>260</y>
+      <width>48</width>
+      <height>48</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background: transparent;
+image: url(:/ChineseChess/res/BlackSoldier.ico);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="m_labBlackSolderLeftTwo">
+    <property name="geometry">
+     <rect>
+      <x>216</x>
+      <y>260</y>
+      <width>48</width>
+      <height>48</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background: transparent;
+image: url(:/ChineseChess/res/BlackSoldier.ico);</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="m_labBlackSolderMiddle">
+    <property name="geometry">
+     <rect>
+      <x>334</x>
+      <y>260</y>
+      <width>48</width>
+      <height>48</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background: transparent;
+image: url(:/ChineseChess/res/BlackSoldier.ico);</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="m_labBlackSolderRightOne">
+    <property name="geometry">
+     <rect>
+      <x>452</x>
+      <y>260</y>
+      <width>48</width>
+      <height>48</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background: transparent;
+image: url(:/ChineseChess/res/BlackSoldier.ico);</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="m_labBlackSolderRightTwo">
+    <property name="geometry">
+     <rect>
+      <x>570</x>
+      <y>260</y>
+      <width>48</width>
+      <height>48</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background: transparent;
+image: url(:/ChineseChess/res/BlackSoldier.ico);</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="m_labRedGeneral">
+    <property name="geometry">
+     <rect>
+      <x>334</x>
+      <y>603</y>
+      <width>48</width>
+      <height>48</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background: transparent;
+image: url(:/ChineseChess/res/RedGeneral.ico);</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="m_labRedAdvisorLeft">
+    <property name="geometry">
+     <rect>
+      <x>275</x>
+      <y>603</y>
+      <width>48</width>
+      <height>48</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background: transparent;
+image: url(:/ChineseChess/res/RedAdvisor.ico);</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="m_labRedAdvisorRight">
+    <property name="geometry">
+     <rect>
+      <x>393</x>
+      <y>603</y>
+      <width>48</width>
+      <height>48</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background: transparent;
+image: url(:/ChineseChess/res/RedAdvisor.ico);</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="m_labRedElephantLeft">
+    <property name="geometry">
+     <rect>
+      <x>216</x>
+      <y>603</y>
+      <width>48</width>
+      <height>48</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background: transparent;
+image: url(:/ChineseChess/res/RedElephant.ico);</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="m_labRedElephantRight">
+    <property name="geometry">
+     <rect>
+      <x>452</x>
+      <y>603</y>
+      <width>48</width>
+      <height>48</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background: transparent;
+image: url(:/ChineseChess/res/RedElephant.ico);</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="m_labRedHorseLeft">
+    <property name="geometry">
+     <rect>
+      <x>157</x>
+      <y>603</y>
+      <width>48</width>
+      <height>48</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background: transparent;
+image: url(:/ChineseChess/res/RedHorse.ico);</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="m_labRedHorseRight">
+    <property name="geometry">
+     <rect>
+      <x>511</x>
+      <y>603</y>
+      <width>48</width>
+      <height>48</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background: transparent;
+image: url(:/ChineseChess/res/RedHorse.ico);</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="m_labRedChariotLeft">
+    <property name="geometry">
+     <rect>
+      <x>98</x>
+      <y>603</y>
+      <width>48</width>
+      <height>48</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background: transparent;
+image: url(:/ChineseChess/res/RedChariot.ico);</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="m_labRedChariotRight">
+    <property name="geometry">
+     <rect>
+      <x>570</x>
+      <y>603</y>
+      <width>48</width>
+      <height>48</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background: transparent;
+image: url(:/ChineseChess/res/RedElephant.ico);</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="m_labRedCannonLeft">
+    <property name="geometry">
+     <rect>
+      <x>157</x>
+      <y>488</y>
+      <width>48</width>
+      <height>48</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background: transparent;
+image: url(:/ChineseChess/res/RedCannon.ico);</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="m_labRedCannonRight">
+    <property name="geometry">
+     <rect>
+      <x>511</x>
+      <y>488</y>
+      <width>48</width>
+      <height>48</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background: transparent;
+image: url(:/ChineseChess/res/RedCannon.ico);</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="m_labRedSolderLeftOne">
+    <property name="geometry">
+     <rect>
+      <x>100</x>
+      <y>430</y>
+      <width>48</width>
+      <height>48</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background: transparent;
+image: url(:/ChineseChess/res/RedSoldier.ico);</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="m_labRedSolderLeftTwo">
+    <property name="geometry">
+     <rect>
+      <x>216</x>
+      <y>431</y>
+      <width>48</width>
+      <height>48</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background: transparent;
+image: url(:/ChineseChess/res/RedSoldier.ico);</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="m_labRedSolderMiddle">
+    <property name="geometry">
+     <rect>
+      <x>334</x>
+      <y>431</y>
+      <width>48</width>
+      <height>48</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background: transparent;
+image: url(:/ChineseChess/res/RedSoldier.ico);</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="m_labRedSolderRightOne">
+    <property name="geometry">
+     <rect>
+      <x>452</x>
+      <y>431</y>
+      <width>48</width>
+      <height>48</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background: transparent;
+image: url(:/ChineseChess/res/RedSoldier.ico);</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="m_labRedSolderRightTwo">
+    <property name="geometry">
+     <rect>
+      <x>570</x>
+      <y>431</y>
+      <width>48</width>
+      <height>48</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background: transparent;
+image: url(:/ChineseChess/res/RedSoldier.ico);</string>
+    </property>
+   </widget>
+  </widget>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources>
+  <include location="../resources/ChineseChess.qrc"/>
+ </resources>
+ <connections/>
+</ui>
