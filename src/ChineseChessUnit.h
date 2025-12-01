@@ -6,7 +6,7 @@
 // 棋子颜色
 typedef enum _CHESS_COLOR_TYPE
 {
-	CHESS_COLOR_NONE,
+	CHESS_COLOR_NONE = -1,
 	CHESS_COLOR_RED,    // 红方
 	CHESS_COLOR_BLACK,  // 黑方
 	CHESS_COLOR_MAX
@@ -15,7 +15,7 @@ typedef enum _CHESS_COLOR_TYPE
 // 棋子角色
 typedef enum _CHESS_ROLE_TYPE
 {
-	CHESS_ROLE_NONE,
+	CHESS_ROLE_NONE = -1,
 	CHESS_ROLE_GENERAL,   // 帅/将
 	CHESS_ROLE_ADVISOR,   // 士/仕
 	CHESS_ROLE_ELEPHANT,  // 相/相
