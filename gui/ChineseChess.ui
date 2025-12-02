@@ -468,7 +468,7 @@ image: url(:/ChineseChess/res/RedCannon.ico);</string>
    <widget class="QLabel" name="m_labRedSolderLeftOne">
     <property name="geometry">
      <rect>
-      <x>100</x>
+      <x>98</x>
       <y>429</y>
       <width>48</width>
       <height>48</height>

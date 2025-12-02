@@ -37,8 +37,7 @@ set(PROJECT_GUI_SOURCES
 )
 
 set(PROJECT_SRC_SOURCES
-    src/ChineseChessUnit.cpp
-    src/ChineseChessManager.cpp
+    src/ChineseChessImpl.cpp
 )
 
 qt_add_executable(${PROJECT_NAME} 

@@ -1,7 +1,6 @@
-﻿#include "ChineseChessManager.h"
-#include "ChineseChessUnit.h"
+﻿#include "ChineseChessImpl.h"
 
-void ChineseChessManager::init(int x, int y)
+void ChineseChessImpl::init(int x, int y)
 {
     for (int i = 0; i < GRID_ROW_NUM; i++)
     {
@@ -53,34 +52,34 @@ void ChineseChessManager::init(int x, int y)
     m_iPosY = y;
 }
 
-bool ChineseChessManager::movePiece(int srcX, int srcY, int dstX, int dstY)
+bool ChineseChessImpl::findPiece(int x, int y, ChessPieceInfo & cpi)
 {
-    //获取当前行
-    int srcRow = static_cast<int>(round(static_cast<double>(srcY - m_iPosY) / GRID_VERT_SIZE));
-    // 校验有效性
-    if (srcRow < 0 || srcRow >= GRID_ROW_NUM)
+    int row = -1;
+    int col = -1;
+    if (!calcRowAndCol(x, y, row, col))
         return false;
 
-    // 获取当前列
-    int srcCol = static_cast<int>(round(static_cast<double>(srcX - m_iPosX) / GRID_HORI_SIZE));
-    // 校验有效性
-    if (srcCol < 0 || srcCol >= GRID_COL_NUM)
+    cpi = m_struChessBoard[row][col];
+
+    return true;
+}
+
+bool ChineseChessImpl::movePiece(int srcX, int srcY, int dstX, int dstY)
+{
+    //获取当前行、列
+    int srcRow = -1;
+    int srcCol = -1;
+    if (!calcRowAndCol(srcX, srcY, srcRow, srcCol))
         return false;
 
     // 是否存在有效棋子
     if (CHESS_ROLE_NONE == m_struChessBoard[srcRow][srcCol].role)
         return false;
 
-    // 获取目标行
-    int dstRow = static_cast<int>(round(static_cast<double>(dstY - m_iPosY) / GRID_VERT_SIZE));
-    // 校验有效性
-    if (dstRow < 0 || dstRow >= GRID_ROW_NUM)
-        return false;
-
-    // 获取目标列
-    int dstCol = static_cast<int>(round(static_cast<double>(dstX - m_iPosX) / GRID_HORI_SIZE));
-    // 校验有效性
-    if (dstCol < 0 || dstCol >= GRID_COL_NUM)
+    // 获取目标行、列
+    int dstRow = -1;
+    int dstCol = -1;
+    if (!calcRowAndCol(dstX, dstY, dstRow, dstCol))
         return false;
 
     // 如果位置相同，则不进行移动
@@ -129,24 +128,41 @@ bool ChineseChessManager::movePiece(int srcX, int srcY, int dstX, int dstY)
     return res;
 }
 
-void ChineseChessManager::setValue(ChessPieceInfo & cpi, CHESS_COLOR_TYPE color, CHESS_ROLE_TYPE role)
+bool ChineseChessImpl::calcRowAndCol(int x, int y, int & row, int & col)
+{
+    //获取当前行
+    row = (y - m_iPosY) / GRID_VERT_SIZE;
+    // 校验有效性
+    if (row < 0 || row >= GRID_ROW_NUM)
+        return false;
+
+    // 获取当前列
+    col = (x - m_iPosX) / GRID_HORI_SIZE;
+    // 校验有效性
+    if (col < 0 || col >= GRID_COL_NUM)
+        return false;
+
+    return true;
+}
+
+void ChineseChessImpl::setValue(ChessPieceInfo & cpi, CHESS_COLOR_TYPE color, CHESS_ROLE_TYPE role)
 {
     cpi.color = color;
     cpi.role = role;
 }
 
-bool ChineseChessManager::moveGeneral(CHESS_COLOR_TYPE color, int srcRow, int srcCol, int dstRow, int dstCol)
+bool ChineseChessImpl::moveGeneral(CHESS_COLOR_TYPE color, int srcRow, int srcCol, int dstRow, int dstCol)
 {
     // 只能3、4、5这3列移动
     if (dstCol < 3 || dstCol > 5)
         return false;
 
     // 黑方只能在0~2行移动
-    if (CHESS_COLOR_BLACK == color && dstRow < 0 || dstRow > 2)
+    if (CHESS_COLOR_BLACK == color && (dstRow < 0 || dstRow > 2))
         return false;
 
     // 红方只能在7~9行移动
-    if (CHESS_COLOR_RED == color && dstRow < 7 || dstRow > 9)
+    if (CHESS_COLOR_RED == color && (dstRow < 7 || dstRow > 9))
         return false;
 
     // 只能移动一步，所以只有行或列发生改变
@@ -156,18 +172,18 @@ bool ChineseChessManager::moveGeneral(CHESS_COLOR_TYPE color, int srcRow, int sr
     return true;
 }
 
-bool ChineseChessManager::moveAdvisor(CHESS_COLOR_TYPE color, int srcRow, int srcCol, int dstRow, int dstCol)
+bool ChineseChessImpl::moveAdvisor(CHESS_COLOR_TYPE color, int srcRow, int srcCol, int dstRow, int dstCol)
 {
     // 只能3、4、5这3列移动
     if (dstCol < 3 || dstCol > 5)
         return false;
 
     // 黑方只能在0~2行移动
-    if (CHESS_COLOR_BLACK == color && dstRow < 0 || dstRow > 2)
+    if (CHESS_COLOR_BLACK == color && (dstRow < 0 || dstRow > 2))
         return false;
 
     // 红方只能在7~9行移动
-    if (CHESS_COLOR_RED == color && dstRow < 7 || dstRow > 9)
+    if (CHESS_COLOR_RED == color && (dstRow < 7 || dstRow > 9))
         return false;
 
     // 只能斜着走，所以行和列同时发生改变
@@ -177,7 +193,7 @@ bool ChineseChessManager::moveAdvisor(CHESS_COLOR_TYPE color, int srcRow, int sr
     return true;
 }
 
-bool ChineseChessManager::moveElephant(CHESS_COLOR_TYPE color, int srcRow, int srcCol, int dstRow, int dstCol)
+bool ChineseChessImpl::moveElephant(CHESS_COLOR_TYPE color, int srcRow, int srcCol, int dstRow, int dstCol)
 {
     // 黑象 不能过河
     if (CHESS_COLOR_BLACK == color && dstRow > 4)
@@ -200,7 +216,7 @@ bool ChineseChessManager::moveElephant(CHESS_COLOR_TYPE color, int srcRow, int s
     return true;
 }
 
-bool ChineseChessManager::moveHorse(int srcRow, int srcCol, int dstRow, int dstCol)
+bool ChineseChessImpl::moveHorse(int srcRow, int srcCol, int dstRow, int dstCol)
 {
     // 非日字
     int row = std::abs(srcRow - dstRow);
@@ -229,7 +245,7 @@ bool ChineseChessManager::moveHorse(int srcRow, int srcCol, int dstRow, int dstC
     return true;
 }
 
-bool ChineseChessManager::moveChariot(int srcRow, int srcCol, int dstRow, int dstCol)
+bool ChineseChessImpl::moveChariot(int srcRow, int srcCol, int dstRow, int dstCol)
 {
     // 只能直线，所以行或列只能有一个发生改变
     if (srcRow != dstRow && srcCol != dstCol)
@@ -272,7 +288,7 @@ bool ChineseChessManager::moveChariot(int srcRow, int srcCol, int dstRow, int ds
     return true;
 }
 
-bool ChineseChessManager::moveCannon(int srcRow, int srcCol, int dstRow, int dstCol)
+bool ChineseChessImpl::moveCannon(int srcRow, int srcCol, int dstRow, int dstCol)
 {
     // 只能直线，所以行或列只能有一个发生改变
     if (srcRow != dstRow && srcCol != dstCol)
@@ -327,7 +343,7 @@ bool ChineseChessManager::moveCannon(int srcRow, int srcCol, int dstRow, int dst
     return true;
 }
 
-bool ChineseChessManager::moveSolder(CHESS_COLOR_TYPE color, int srcRow, int srcCol, int dstRow, int dstCol)
+bool ChineseChessImpl::moveSolder(CHESS_COLOR_TYPE color, int srcRow, int srcCol, int dstRow, int dstCol)
 {
     // 兵/卒只能向前或横移
     if (CHESS_COLOR_BLACK == color && srcRow > dstRow)
