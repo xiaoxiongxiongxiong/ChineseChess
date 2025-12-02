@@ -1,6 +1,5 @@
 ﻿#include "ChineseChess.h"
 #include <QPainter>
-#include <QPixmap>
 #include <QMessageBox>
 
 ChineseChess::ChineseChess(QWidget *parent)
