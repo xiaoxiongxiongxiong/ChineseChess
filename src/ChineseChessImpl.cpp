@@ -50,6 +50,7 @@ void ChineseChessImpl::init(int x, int y)
 
     m_iPosX = x;
     m_iPosY = y;
+    m_blInit = true;
 }
 
 bool ChineseChessImpl::findPiece(int x, int y, ChessPieceInfo & cpi)
@@ -126,6 +127,70 @@ bool ChineseChessImpl::movePiece(int srcX, int srcY, int dstX, int dstY)
     }
 
     return res;
+}
+
+CHESS_RESULT_TYPE ChineseChessImpl::isOver(CHESS_COLOR_TYPE color)
+{
+    if (!m_blInit)
+        return CHESS_RESULT_NONE;
+
+    // 黑方主帅位置
+    int br = -1;
+    int bc = -1;
+    // 判断黑方主帅是否存在
+    for (int i = 0; i < 3; i++)
+    {
+        for (int j = 3; j < 6; j++)
+        {
+            if (CHESS_ROLE_GENERAL == m_struChessBoard[i][j].role)
+            {
+                bc = j;
+                break;
+            }
+        }
+        if (-1 != bc)
+        {
+            br = i;
+            break;
+        }
+    }
+    if (br < 0)
+        return CHESS_RESULT_RWIN;
+
+
+    // 红方主帅位置
+    int rr = -1;
+    int rc = -1;
+    // 判断红方主帅是否存在
+    for (int i = 7; i < 10; i++)
+    {
+        for (int j = 3; j < 6; j++)
+        {
+            if (CHESS_ROLE_GENERAL == m_struChessBoard[i][j].role)
+            {
+                rc = j;
+                break;
+            }
+        }
+        if (-1 != rc)
+        {
+            rr = i;
+            break;
+        }
+    }
+    if (rr < 0)
+        return CHESS_RESULT_BWIN;
+
+    if (bc != rc)
+        return CHESS_RESULT_PLAYING;
+
+    for (int i = br + 1; i < rr; i++)
+    {
+        if (CHESS_ROLE_NONE != m_struChessBoard[i][bc].role)
+            return CHESS_RESULT_PLAYING;
+    }
+
+    return CHESS_COLOR_BLACK == color ? CHESS_RESULT_RWIN : CHESS_RESULT_BWIN;
 }
 
 bool ChineseChessImpl::calcRowAndCol(int x, int y, int & row, int & col)

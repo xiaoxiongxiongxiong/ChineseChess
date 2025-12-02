@@ -31,6 +31,15 @@ typedef enum _CHESS_ROLE_TYPE
     CHESS_ROLE_MAX
 } CHESS_ROLE_TYPE;
 
+typedef enum _CHESS_RESULT_TYPE
+{
+	CHESS_RESULT_NONE = -1,
+	CHESS_RESULT_PLAYING,  // 进行中
+	CHESS_RESULT_BWIN,     // 黑方赢
+	CHESS_RESULT_RWIN,     // 红方赢
+	CHESS_RESULT_MAX
+} CHESS_RESULT_TYPE;
+
 // 棋子信息
 typedef struct _ChessPieceInfo
 {
@@ -68,6 +77,9 @@ public:
 	// 移动棋子
 	bool movePiece(int srcX, int srcY, int dstX, int dstY);
 
+    // 判断游戏是否结束 1.王对王 2.帥/將无
+	CHESS_RESULT_TYPE isOver(CHESS_COLOR_TYPE color);
+
 private:
 	ChineseChessImpl() = default;
 	~ChineseChessImpl() = default;
@@ -100,6 +112,9 @@ private:
 	bool moveSolder(CHESS_COLOR_TYPE color, int srcRow, int srcCol, int dstRow, int dstCol);
 
 private:
+	// 是否已初始化
+	bool m_blInit = false;
+
 	// 左上角横坐标
 	int m_iPosX = 0;
 	// 左上角纵坐标
