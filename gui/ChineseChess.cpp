@@ -1,6 +1,7 @@
 ﻿#include "ChineseChess.h"
 #include <QPainter>
 #include <QPixmap>
+#include <QMessageBox>
 
 ChineseChess::ChineseChess(QWidget *parent)
     : QMainWindow(parent)
@@ -31,11 +32,12 @@ void ChineseChess::onBtnClickedStart()
     m_struPieces.color = CHESS_COLOR_NONE;
     const auto & pos = ui.m_labBlackChariotLeft->pos();
     ChineseChessImpl::getInstance().init(pos.x(), pos.y());
+    m_blOver = false;
 }
 
 void ChineseChess::mouseReleaseEvent(QMouseEvent * event)
 {
-    if (Qt::LeftButton != event->button())
+    if (Qt::LeftButton != event->button() || m_blOver)
         return;
 
     auto pos = event->pos();
@@ -79,6 +81,25 @@ void ChineseChess::mouseReleaseEvent(QMouseEvent * event)
             m_uiColor = CHESS_COLOR_BLACK == m_uiColor ? CHESS_COLOR_RED : CHESS_COLOR_BLACK;
             m_struPieces.role = CHESS_ROLE_NONE;
             m_struPieces.color = CHESS_COLOR_NONE;
+
+            auto res = ChineseChessImpl::getInstance().isOver(cpi.color);
+            switch (res)
+            {
+            case CHESS_RESULT_RWIN:
+            {
+                m_blOver = true;
+                QMessageBox::information(this, QStringLiteral("对局结果"), QStringLiteral("红方胜！"));
+            }
+                break;
+            case CHESS_RESULT_BWIN:
+            {
+                m_blOver = true;
+                QMessageBox::information(this, QStringLiteral("对局结果"), QStringLiteral("黑方胜！"));
+            }
+                break;
+            default:
+                break;
+            }
             return;
         }
     }

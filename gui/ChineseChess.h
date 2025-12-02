@@ -32,5 +32,8 @@ private:
 
     // 原位置和目标位置
     ChessPieceInfo m_struPieces{};
+
+    // 是否对局完成
+    bool m_blOver = false;
 };
 
