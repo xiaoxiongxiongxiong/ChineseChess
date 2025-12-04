@@ -16,5 +16,9 @@
         <file>res/RedGeneral.ico</file>
         <file>res/RedHorse.ico</file>
         <file>res/RedSoldier.ico</file>
+        <file>res/concede.png</file>
+        <file>res/draw.png</file>
+        <file>res/withdraw.png</file>
+        <file>res/start.png</file>
     </qresource>
 </RCC>

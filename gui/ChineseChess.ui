@@ -17,9 +17,6 @@
    <iconset resource="../resources/ChineseChess.qrc">
     <normaloff>:/ChineseChess/res/logo.ico</normaloff>:/ChineseChess/res/logo.ico</iconset>
   </property>
-  <property name="styleSheet">
-   <string notr="true">image: url(:/ChineseChess/res/ChessBoard.png);</string>
-  </property>
   <property name="iconSize">
    <size>
     <width>36</width>
@@ -27,13 +24,18 @@
    </size>
   </property>
   <widget class="QWidget" name="centralWidget">
+   <property name="styleSheet">
+    <string notr="true">#centralWidget{ 
+    image: url(:/ChineseChess/res/ChessBoard.png);
+}</string>
+   </property>
    <widget class="QPushButton" name="m_btnStart">
     <property name="geometry">
      <rect>
-      <x>650</x>
-      <y>630</y>
-      <width>60</width>
-      <height>42</height>
+      <x>155</x>
+      <y>680</y>
+      <width>81</width>
+      <height>32</height>
      </rect>
     </property>
     <property name="font">
@@ -41,14 +43,12 @@
       <pointsize>12</pointsize>
      </font>
     </property>
-    <property name="text">
-     <string>开始</string>
+    <property name="styleSheet">
+     <string notr="true">background: transparent;
+border-image: url(:/ChineseChess/res/start.png);</string>
     </property>
-    <property name="iconSize">
-     <size>
-      <width>36</width>
-      <height>36</height>
-     </size>
+    <property name="text">
+     <string/>
     </property>
    </widget>
    <widget class="QLabel" name="m_labBlackGeneral">
@@ -533,6 +533,45 @@ image: url(:/ChineseChess/res/RedSoldier.ico);</string>
     <property name="styleSheet">
      <string notr="true">background: transparent;
 image: url(:/ChineseChess/res/RedSoldier.ico);</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="m_btnDraw">
+    <property name="geometry">
+     <rect>
+      <x>375</x>
+      <y>680</y>
+      <width>81</width>
+      <height>32</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-image: url(:/ChineseChess/res/draw.png);</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="m_btnWithdraw">
+    <property name="geometry">
+     <rect>
+      <x>265</x>
+      <y>680</y>
+      <width>81</width>
+      <height>32</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-image: url(:/ChineseChess/res/withdraw.png);</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="m_btnConcede">
+    <property name="geometry">
+     <rect>
+      <x>485</x>
+      <y>680</y>
+      <width>81</width>
+      <height>32</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-image: url(:/ChineseChess/res/concede.png);</string>
     </property>
    </widget>
   </widget>
