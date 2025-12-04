@@ -44,6 +44,7 @@ qt_add_executable(${PROJECT_NAME}
     ${PROJECT_GUI_SOURCES} 
     ${PROJECT_SRC_SOURCES}
     ${QRC_FILES}
+    resources/resources.rc
 )
 
 set_target_properties(${PROJECT_NAME}
