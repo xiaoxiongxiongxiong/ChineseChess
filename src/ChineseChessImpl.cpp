@@ -411,11 +411,26 @@ bool ChineseChessImpl::moveCannon(int srcRow, int srcCol, int dstRow, int dstCol
 bool ChineseChessImpl::moveSolder(CHESS_COLOR_TYPE color, int srcRow, int srcCol, int dstRow, int dstCol)
 {
     // 兵/卒只能向前或横移
-    if (CHESS_COLOR_BLACK == color && srcRow > dstRow)
-        return false;
-   
-    if (CHESS_COLOR_RED == color && srcRow < dstRow)
-        return false;
+    if (CHESS_COLOR_BLACK == color)
+    {
+        // 不许后退
+        if (srcRow > dstRow)
+            return false;
+
+        // 未过河之前只能前进
+        if (srcRow < 5 && srcRow == dstRow)
+            return false;
+    }
+
+    if (CHESS_COLOR_RED == color)
+    {
+        if (srcRow < dstRow)
+            return false;
+
+        // 未过河之前只能前进
+        if (srcRow > 4 && srcRow == dstRow)
+            return false;
+    }
 
     // 只能移动一格
     if (1 != std::abs(srcRow - dstRow) + std::abs(srcCol - dstCol))
