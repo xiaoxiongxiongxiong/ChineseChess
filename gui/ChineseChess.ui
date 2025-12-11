@@ -574,6 +574,119 @@ image: url(:/ChineseChess/res/RedSoldier.ico);</string>
      <string notr="true">border-image: url(:/ChineseChess/res/concede.png);</string>
     </property>
    </widget>
+   <widget class="QWidget" name="m_wndHeader" native="true">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>720</width>
+      <height>40</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QWidget#m_wndHeader {
+    border-bottom: 2px solid #141419;
+	background-color: rgb(217, 217, 217);
+}</string>
+    </property>
+    <widget class="QLabel" name="m_labLogo">
+     <property name="geometry">
+      <rect>
+       <x>2</x>
+       <y>2</y>
+       <width>36</width>
+       <height>36</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background: transparent;
+image: url(:/ChineseChess/res/logo.ico);</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="m_btnClose">
+     <property name="geometry">
+      <rect>
+       <x>684</x>
+       <y>2</y>
+       <width>36</width>
+       <height>36</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">#m_btnClose{
+border-style:solid;
+background-color: rgba(239, 234, 234, 0);
+border-image:url(:/ChineseChess/res/NormalClose.ico);
+}
+#m_btnClose:hover{
+border-image:url(:/ChineseChess/res/SelectClose.ico);
+}</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="m_btnMinimize">
+     <property name="geometry">
+      <rect>
+       <x>646</x>
+       <y>2</y>
+       <width>36</width>
+       <height>36</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">#m_btnMinimize{
+border-style:solid;
+background-color: rgba(239, 234, 234, 0);
+border-image:url(:/ChineseChess/res/NormalMinimize.ico);
+}
+#m_btnMinimize:hover{
+border-image:url(:/ChineseChess/res/SelectMinimize.ico);
+}</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="m_btnSetting">
+     <property name="geometry">
+      <rect>
+       <x>608</x>
+       <y>2</y>
+       <width>36</width>
+       <height>36</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">#m_btnSetting{
+border-style:solid;
+background-color: rgba(239, 234, 234, 0);
+border-image:url(:/ChineseChess/res/NormalSetting.ico);
+}
+#m_btnSetting:hover{
+border-image:url(:/ChineseChess/res/SelectSetting.ico);
+}</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="m_labTitle">
+     <property name="geometry">
+      <rect>
+       <x>40</x>
+       <y>4</y>
+       <width>120</width>
+       <height>32</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>中国象棋</string>
+     </property>
+    </widget>
+    <zorder>m_btnClose</zorder>
+    <zorder>m_btnMinimize</zorder>
+    <zorder>m_btnSetting</zorder>
+    <zorder>m_labLogo</zorder>
+    <zorder>m_labTitle</zorder>
+   </widget>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>

@@ -20,5 +20,11 @@
         <file>res/draw.png</file>
         <file>res/withdraw.png</file>
         <file>res/start.png</file>
+        <file>res/NormalClose.ico</file>
+        <file>res/NormalMinimize.ico</file>
+        <file>res/SelectClose.ico</file>
+        <file>res/SelectMinimize.ico</file>
+        <file>res/NormalSetting.ico</file>
+        <file>res/SelectSetting.ico</file>
     </qresource>
 </RCC>

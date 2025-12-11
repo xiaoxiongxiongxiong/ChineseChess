@@ -7,23 +7,68 @@ ChineseChess::ChineseChess(QWidget *parent)
 {
     ui.setupUi(this);
 
+    setWindowFlags(Qt::FramelessWindowHint);
+
     auto labels = this->findChildren<QLabel *>();
     for (const auto & lab : labels)
     {
+        if ("m_labLogo" == lab->objectName() || "m_labTitle" == lab->objectName())
+            continue;
+        auto pos = lab->pos();
+        lab->setProperty("src_x", pos.x());
+        lab->setProperty("src_y", pos.y());
         lab->hide();
     }
 
+    ui.m_btnWithdraw->setEnabled(false);
+    ui.m_btnDraw->setEnabled(false);
+    ui.m_btnConcede->setEnabled(false);
+
+    connect(ui.m_btnSetting, SIGNAL(clicked()), this, SLOT(onBtnClickedSetting()));
+    connect(ui.m_btnMinimize, SIGNAL(clicked()), this, SLOT(onBtnClickedMinimize()));
+    connect(ui.m_btnClose, SIGNAL(clicked()), this, SLOT(onBtnClickedClose()));
     connect(ui.m_btnStart, SIGNAL(clicked()), this, SLOT(onBtnClickedStart()));
+    connect(ui.m_btnWithdraw, SIGNAL(clicked()), this, SLOT(onBtnClickedWithdraw()));
+    connect(ui.m_btnDraw, SIGNAL(clicked()), this, SLOT(onBtnClickedDraw()));
+    connect(ui.m_btnConcede, SIGNAL(clicked()), this, SLOT(onBtnClickedConcede()));
 }
 
 ChineseChess::~ChineseChess()
 {}
 
+void ChineseChess::onBtnClickedSetting()
+{
+}
+
+void ChineseChess::onBtnClickedMinimize()
+{
+    if (Qt::WindowMinimized == this->windowState())
+        this->showNormal();
+    else
+        this->showMinimized();
+}
+
+void ChineseChess::onBtnClickedClose()
+{
+    QApplication * app;
+    app->quit();
+}
+
 void ChineseChess::onBtnClickedStart()
 {
+    if (m_blPlaying)
+        return;
+
     auto labels = this->findChildren<QLabel *>();
     for (const auto & lab : labels)
     {
+        if ("m_labLogo" == lab->objectName() || "m_labTitle" == lab->objectName())
+            continue;
+        auto x = lab->property("src_x").toInt();
+        auto y = lab->property("src_y").toInt();
+        lab->move(x, y);
+
+        updateLabelStyleSheet(lab);
         lab->show();
     }
 
@@ -31,19 +76,90 @@ void ChineseChess::onBtnClickedStart()
     m_struPieces.color = CHESS_COLOR_NONE;
     const auto & pos = ui.m_labBlackChariotLeft->pos();
     ChineseChessImpl::getInstance().init(pos.x(), pos.y());
-    m_blOver = false;
+    m_blPlaying = true;
+
+    ui.m_btnWithdraw->setEnabled(true);
+    ui.m_btnDraw->setEnabled(true);
+    ui.m_btnConcede->setEnabled(true);
+}
+
+void ChineseChess::onBtnClickedWithdraw()
+{
+    if (!m_blPlaying)
+    {
+        QMessageBox::warning(this, QStringLiteral("警告"), QStringLiteral("对局未进行！"));
+        return;
+    }
+}
+
+void ChineseChess::onBtnClickedDraw()
+{
+    if (!m_blPlaying)
+    {
+        QMessageBox::warning(this, QStringLiteral("警告"), QStringLiteral("对局未进行！"));
+        return;
+    }
+
+    int res;
+    if (CHESS_COLOR_BLACK == m_uiColor)
+        res = QMessageBox::information(this, QStringLiteral("和棋"), QStringLiteral("黑方请求和棋？"));
+    else
+        res = QMessageBox::information(this, QStringLiteral("和棋"), QStringLiteral("红方请求和棋？"), QMessageBox::Ok, QMessageBox::No);
+    if (QMessageBox::Ok == res)
+    {
+        QMessageBox::information(this, QStringLiteral("对局结果"), QStringLiteral("和棋！"));
+        m_blPlaying = false;
+    }
+}
+
+void ChineseChess::onBtnClickedConcede()
+{
+    if (!m_blPlaying)
+    {
+        QMessageBox::warning(this, QStringLiteral("警告"), QStringLiteral("对局未进行！"));
+        return;
+    }
+
+    if (CHESS_COLOR_BLACK == m_uiColor)
+        QMessageBox::information(this, QStringLiteral("对局结果"), QStringLiteral("黑方认输，红方胜！"));
+    else
+        QMessageBox::information(this, QStringLiteral("对局结果"), QStringLiteral("红方认输，黑方胜！"));
+    m_blPlaying = false;
+}
+
+void ChineseChess::mousePressEvent(QMouseEvent * event)
+{
+    m_blPressed = true; // 当前鼠标按下的即是QWidget而非界面上布局的其它控件
+    m_ptPos = event->globalPos();
+}
+
+void ChineseChess::mouseMoveEvent(QMouseEvent * event)
+{
+    if (m_blPressed)
+    {
+        int dx = event->globalX() - m_ptPos.x();
+        int dy = event->globalY() - m_ptPos.y();
+        m_ptPos = event->globalPos();
+        move(x() + dx, y() + dy);
+    }
 }
 
 void ChineseChess::mouseReleaseEvent(QMouseEvent * event)
 {
-    if (Qt::LeftButton != event->button() || m_blOver)
+    if (Qt::LeftButton != event->button())
         return;
-
-    auto pos = event->pos();
 
     ChessPieceInfo cpi{};
-    if (!ChineseChessImpl::getInstance().findPiece(pos.x(), pos.y(), cpi))
+    auto pos = event->pos();
+    auto ret = ChineseChessImpl::getInstance().findPiece(pos.x(), pos.y(), cpi);
+    if (!m_blPlaying || !ret)
+    {
+        int dx = event->globalX() - m_ptPos.x();
+        int dy = event->globalY() - m_ptPos.y();
+        move(x() + dx, y() + dy);
+        m_blPressed = false; // 鼠标松开时，置为false
         return;
+    }
 
     // 棋子未选中
     if (CHESS_ROLE_NONE == m_struPieces.role)
@@ -78,27 +194,27 @@ void ChineseChess::mouseReleaseEvent(QMouseEvent * event)
             }
 
             m_uiColor = CHESS_COLOR_BLACK == m_uiColor ? CHESS_COLOR_RED : CHESS_COLOR_BLACK;
-            m_struPieces.role = CHESS_ROLE_NONE;
-            m_struPieces.color = CHESS_COLOR_NONE;
 
-            auto res = ChineseChessImpl::getInstance().isOver(cpi.color);
+            auto res = ChineseChessImpl::getInstance().isOver(m_struPieces.color);
             switch (res)
             {
             case CHESS_RESULT_RWIN:
             {
-                m_blOver = true;
+                m_blPlaying = false;
                 QMessageBox::information(this, QStringLiteral("对局结果"), QStringLiteral("红方胜！"));
             }
                 break;
             case CHESS_RESULT_BWIN:
             {
-                m_blOver = true;
+                m_blPlaying = false;
                 QMessageBox::information(this, QStringLiteral("对局结果"), QStringLiteral("黑方胜！"));
             }
                 break;
             default:
                 break;
             }
+            m_struPieces.role = CHESS_ROLE_NONE;
+            m_struPieces.color = CHESS_COLOR_NONE;
             return;
         }
     }
@@ -106,6 +222,8 @@ void ChineseChess::mouseReleaseEvent(QMouseEvent * event)
     auto labels = this->findChildren<QLabel *>();
     for (const auto & lab : labels)
     {
+        if ("m_labLogo" == lab->objectName() || "m_labTitle" == lab->objectName())
+            continue;
         pos = lab->pos();
         if (pos.x() == cpi.x && pos.y() == cpi.y)
             updateLabelStyleSheet(lab, true);
