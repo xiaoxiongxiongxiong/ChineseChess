@@ -2,6 +2,8 @@
 #include <QPainter>
 #include <QMessageBox>
 
+#include "PromptBox.h"
+
 ChineseChess::ChineseChess(QWidget *parent)
     : QMainWindow(parent)
 {
@@ -38,6 +40,12 @@ ChineseChess::~ChineseChess()
 
 void ChineseChess::onBtnClickedSetting()
 {
+    PromptBox pb(this);
+    if (CHESS_COLOR_BLACK == m_uiColor)
+        pb.setMessage(QStringLiteral("黑方请求悔棋？"));
+    else
+        pb.setMessage(QStringLiteral("红方请求悔棋？"));
+    pb.exec();
 }
 
 void ChineseChess::onBtnClickedMinimize()
@@ -90,6 +98,13 @@ void ChineseChess::onBtnClickedWithdraw()
         QMessageBox::warning(this, QStringLiteral("警告"), QStringLiteral("对局未进行！"));
         return;
     }
+
+    PromptBox pb(this);
+    if (CHESS_COLOR_BLACK == m_uiColor)
+        pb.setMessage(QStringLiteral("黑方请求悔棋？"));
+    else
+        pb.setMessage(QStringLiteral("红方请求悔棋？"));
+    pb.exec();
 }
 
 void ChineseChess::onBtnClickedDraw()
@@ -100,16 +115,18 @@ void ChineseChess::onBtnClickedDraw()
         return;
     }
 
-    int res;
+    PromptBox pb(this);
+    //int res = 0;
     if (CHESS_COLOR_BLACK == m_uiColor)
-        res = QMessageBox::information(this, QStringLiteral("和棋"), QStringLiteral("黑方请求和棋？"));
+        pb.setMessage(QStringLiteral("黑方请求和棋？"));
     else
-        res = QMessageBox::information(this, QStringLiteral("和棋"), QStringLiteral("红方请求和棋？"), QMessageBox::Ok, QMessageBox::No);
-    if (QMessageBox::Ok == res)
-    {
-        QMessageBox::information(this, QStringLiteral("对局结果"), QStringLiteral("和棋！"));
-        m_blPlaying = false;
-    }
+        pb.setMessage(QStringLiteral("红方请求和棋？"));
+    pb.exec();
+    //if (QMessageBox::Ok == res)
+    //{
+    //    QMessageBox::information(this, QStringLiteral("对局结果"), QStringLiteral("和棋！"));
+    //    m_blPlaying = false;
+    //}
 }
 
 void ChineseChess::onBtnClickedConcede()

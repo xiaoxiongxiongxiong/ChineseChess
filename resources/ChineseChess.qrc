@@ -26,5 +26,6 @@
         <file>res/SelectMinimize.ico</file>
         <file>res/NormalSetting.ico</file>
         <file>res/SelectSetting.ico</file>
+        <file>res/PromptBox.png</file>
     </qresource>
 </RCC>

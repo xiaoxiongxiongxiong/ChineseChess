@@ -34,6 +34,9 @@ set(PROJECT_GUI_SOURCES
     gui/ChineseChess.ui
     gui/ChineseChess.h
     gui/ChineseChess.cpp
+    gui/PromptBox.ui
+    gui/PromptBox.h
+    gui/PromptBox.cpp
 )
 
 set(PROJECT_SRC_SOURCES
